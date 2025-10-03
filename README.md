@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Permaverger — Site vitrine (Next.js + TypeScript + Tailwind v4 + shadcn/ui)
 
-## Getting Started
+Projet vitrine pour Permaverger, inspiré d’un style clean et moderne, adapté au thème permaculture/verger.
 
-First, run the development server:
+- Stack: Next.js (App Router), TypeScript, Tailwind CSS v4, shadcn/ui
+- Structure prête pour Blog et Tutoriels
+- Composants UI réutilisables et thémés (boutons, cartes, navigation, etc.)
+
+## Démarrage
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Build et production :
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Structure principale
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/`
+  - `page.tsx` — page d’accueil (Hero, piliers, newsletter, contact)
+  - `layout.tsx` — layout global avec Header et Footer
+  - `globals.css` — styles globaux + Tailwind v4 (@import "tailwindcss")
+  - `not-found.tsx` — page 404
+  - `blog/` — page d’index blog (`/blog`), prête pour accueillir des sous-pages
+  - `tutorials/` — page d’index tutoriels (`/tutorials`), prête pour des sous-pages
+- `src/components/ui/` — composants shadcn/ui (button, card, badge, input, textarea, navigation-menu, sheet)
+- `src/components/site/` — Header et Footer
+- `tsconfig.json` — TypeScript + alias `@/*` activé (requis par shadcn/ui)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Blog & Tutoriels
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deux approches possibles :
+- Pages TSX: créez un dossier par article/tutoriel avec `page.tsx`, par ex. `src/app/blog/mon-article/page.tsx`.
+- Markdown/MDX (optionnel): vous pourrez intégrer MDX ultérieurement si souhaité.
 
-## Deploy on Vercel
+## shadcn/ui
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Le projet est initialisé avec shadcn/ui et les composants suivants :
+- `button`, `card`, `badge`, `input`, `textarea`, `navigation-menu`, `sheet`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ajouter d’autres composants :
+
+```bash
+npx shadcn@latest add alert dialog dropdown-menu tabs accordion # etc.
+```
+
+Les composants sont accessibles via l’alias `@/components/ui/...` et prêts à être stylés.
+
+## Style & Thème (Tailwind v4)
+
+Tailwind v4 est déjà configuré via `src/app/globals.css`.
+
+- Pour personnaliser les couleurs/tokens, modifiez la section `@theme inline` dans `globals.css`.
+- Vous pouvez utiliser les classes Tailwind directement dans vos composants (`bg-green-600`, `text-muted-foreground`, etc.).
+- Pour un branding plus fort (vert Permaverger), gardez une palette cohérente (ex: `bg-green-600 hover:bg-green-700`).
+
+Exemple : ajouter/ajuster des tokens dans `@theme inline` puis utiliser `bg-primary` si vous définissez `--color-primary`.
+
+## Déploiement (Vercel)
+
+1. Build local :
+   ```bash
+   npm run build
+   ```
+2. Démarrage local (prod) :
+   ```bash
+   npm run start
+   ```
+3. Versionnez le dépôt et poussez sur GitHub :
+   ```bash
+   git init
+   git add .
+   git commit -m "chore: init Permaverger site"
+   git branch -M main
+   git remote add origin <votre_repo_git>
+   git push -u origin main
+   ```
+4. Connectez le repo à Vercel (import du projet), puis laissez le déploiement automatique se faire à chaque `git push`.
+
+## Notes
+
+- L’alias d’import `@/*` est activé car requis par l’outil shadcn/ui. Si vous ne souhaitez pas l’utiliser ailleurs, continuez à importer avec des chemins relatifs, cela reste compatible.
+- La navigation inclut des liens vers `/`, `/blog`, `/tutorials` et l’ancre `/#decouvrir` sur la home.
+
+## Idées de next steps
+
+- MDX pour écrire les articles/tutos en Markdown.
+- Pages détaillées pour les exemples listés (blog et tutoriels).
+- Ajout d’images/galeries (optimisées via `next/image`).
+- Personnalisation fine du thème (tokens Tailwind v4) et éventuel Dark Mode.
